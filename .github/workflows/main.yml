@@ -1,46 +1,8 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 name: Android CI
 
-runs-on:
-
-push:
- 
-    branch:
+on:
+  push:
+    branches:
       - main
       - tooling-api
 
@@ -85,9 +47,37 @@ jobs:
           name: apk-debug
           path: app/build/outputs/apk/debug/app-debug.apk
 
-      - name: Upload translation report
-        uses: actions/upload-artifact@v2
-        if: ${{ !github.head_ref }}
-        with:
-          name: translation-report
-          path:   echo test, and deploy your project.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
