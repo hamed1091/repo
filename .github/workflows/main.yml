@@ -31,23 +31,26 @@ jobs:
           distributions-cache-enabled: true
           dependencies-cache-enabled: true
           configuration-cache-enabled: true
+  test:
+    name: Test on node ${{ matrix.node_version }} and ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        node_version: ['8', '10', '12']
+        os: [ubuntu-latest, windows-latest, macOS-latest]
 
-      - name: Generate translation report
-        uses: eskatos/gradle-command-action@v1
-        with:
-          arguments: :app:checkTranslations
-          distributions-cache-enabled: true
-          dependencies-cache-enabled: true
-          configuration-cache-enabled: true
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js ${{ matrix.node_version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node_version }}
 
-      - name: Upload APK
-        uses: actions/upload-artifact@v2
-        if: ${{ !github.head_ref }}
-        with:
-          name: apk-debug
-          path: app/build/outputs/apk/debug/app-debug.apk
-
-
+    - name: npm install, build and test
+      run: |
+        npm install
+        npm run build --if-present
+        npm test
 
 
 
